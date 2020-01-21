@@ -1,4 +1,4 @@
-//BST: insert, find_min, find_max, Print
+
 #include <iostream>
 
 using namespace std;
@@ -49,6 +49,17 @@ void Print (Node * node)
 
 }
 
+bool find_node(Node * node, int val) {
+    if(node == nullptr)
+        return 0;
+    if(node -> value == val) return 1;
+
+    if(find_node(node -> left, val)) return 1;
+
+    return find_node(node -> right, val);
+}
+
+
 int main() {
     int n;
     cin >> n;
@@ -64,8 +75,9 @@ int main() {
 
     cout << find_min(parent) << endl;
     cout << find_max(parent) << endl;
+    cout << find_node(parent, 10) << endl;
 
-    Print(parent);
+     Print(parent);
 
     return 0;
 }
