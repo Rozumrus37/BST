@@ -1,0 +1,96 @@
+#include "pch.h"
+#include <iostream>
+
+
+using namespace std;
+
+struct Node {
+private:
+	int value;
+	Node* left;
+	Node* right;
+public:
+	Node(const int val) {
+		left = right = nullptr;
+		value = val;
+	}
+
+	~Node();
+
+	void insert(const int val) {
+
+		if (value <= val)
+			right->insert(val);
+		else
+			left->insert(val);
+	}
+
+	int find_min() {
+		if (left == nullptr)
+			return value;
+		else return left->find_min();
+
+	}
+
+	int find_max() {
+		if (right == nullptr)
+			return value;
+		else return right->find_max();
+	}
+
+	void Print(){
+
+		if (left != nullptr) 
+			left->Print();
+		
+
+		cout << value << " ";
+
+		if (right != nullptr) 
+			right->Print();
+	
+
+
+	}
+
+	/*bool find_node(int val) {
+		if (node == nullptr)
+			return 0;
+		if (value == val) return 1;
+
+		if (find_node(left, val)) return 1;
+
+		return find_node(right, val);
+	}
+	*/
+	~Node() {
+		if (left)
+			delete left;
+
+		if (right)
+			delete right;
+	}
+};
+
+int main() {
+	int n;
+	cin >> n;
+	int* a = new int[n];
+
+	cin >> a[0];
+	Node *parent = new Node(a[0]);
+
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+		parent->insert(a[i]);
+	}
+
+	/*cout << parent->find_min(parent) << endl;
+	cout << parent->find_max(parent) << endl;
+	cout << parent->find_node(parent, 10) << endl;*/
+
+	parent->Print();
+	delete[] a;
+
+	return 0;
+}
