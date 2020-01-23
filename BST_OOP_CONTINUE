@@ -1,0 +1,108 @@
+
+#include <iostream>
+
+
+using namespace std;
+
+class Node {
+private:
+  int value;
+  Node * left;
+  Node * right;
+  Node(const int val) {
+		left = right = nullptr;
+		value = val;
+	}
+};
+
+
+class Tree {
+public:
+
+  Node * root;
+  Tree(int val) {
+    root = new Node(val);
+  }
+
+
+	void insert(Node * node, const int val) {
+
+		if (node->value <= val) {
+      if(node->right == nullptr) 
+        node->right = new Node(val);
+      else 
+        insert(node->right, val); 
+    } else {
+        if(node->left == nullptr) 
+          node->left = new Node(val);
+        else 
+          insert(node->left, val);
+
+    }
+
+
+	}
+
+	/*int find_min() {
+		if (left == nullptr)
+			return value;
+		else return left->find_min();
+
+	}
+
+	int find_max() {
+		if (right == nullptr)
+			return value;
+		else return right->find_max();
+	}*/
+
+	void Print(){
+
+		if (root->left != nullptr) 
+			left->Print();
+		
+
+		cout << value << " ";
+
+		if (right != nullptr) 
+			right->Print();
+	
+
+
+	}
+
+	/*bool find_node(int val) {
+		if (node == nullptr)
+			return 0;
+		if (value == val) return 1;
+
+		if (find_node(left, val)) return 1;
+
+		return find_node(right, val);
+	}
+	*/
+
+};
+
+int main() {
+	int n;
+	cin >> n;
+	int* a = new int[n];
+
+	cin >> a[0];
+	Node *root = new Node(a[0]);
+  Tree *tree= new Tree(a[0]);
+	for (int i = 1; i < n; i++) {
+		cin >> a[i];
+    tree->insert(root, a[i]);
+	}
+
+	/*cout << parent->find_min(parent) << endl;
+	cout << parent->find_max(parent) << endl;
+	cout << parent->find_node(parent, 10) << endl;*/
+
+//	parent->Print();
+	delete[] a;
+
+	return 0;
+}
